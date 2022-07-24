@@ -1,1 +1,3 @@
+/// Day 8: Seven Segment Search
+/// Link: https://adventofcode.com/2021/day/8
 pub mod day8;

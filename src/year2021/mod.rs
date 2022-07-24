@@ -1,3 +1,1 @@
-pub fn print() {
-    println!("From module");
-}
+pub mod day8;

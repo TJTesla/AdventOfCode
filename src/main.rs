@@ -1,5 +1,5 @@
 mod year2021;
 
 fn main() {
-    year2021::print();
+    year2021::day8::part_one();
 }

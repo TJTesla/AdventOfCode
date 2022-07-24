@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::{fs, collections::HashSet};
 
 /// Store a single digit of the 7-segment display

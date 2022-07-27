@@ -7,3 +7,8 @@ pub mod day8;
 /// 
 /// Link: https://adventofcode.com/2021/day/9
 pub mod day9;
+
+/// Day 10: Syntax Scoring
+/// 
+/// Link: https://adventofcode.com/2021/day/10
+pub mod day10;

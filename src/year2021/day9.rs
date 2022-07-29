@@ -1,4 +1,4 @@
-#[allow(dead_code)]
+#![allow(dead_code)]
 use std::fs;
 
 fn get_input(test: bool) -> Vec<Vec<Cell>> {

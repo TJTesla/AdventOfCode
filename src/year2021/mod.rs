@@ -12,3 +12,8 @@ pub mod day9;
 /// 
 /// Link: https://adventofcode.com/2021/day/10
 pub mod day10;
+
+/// Day 11: Dumbo Octopus
+/// 
+/// Link: https://adventofcode.com/2021/day/11
+pub mod day11;

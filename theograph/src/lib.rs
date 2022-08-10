@@ -128,11 +128,19 @@ impl<N: PartialEq + Eq + Hash> Graph<N> {
         self.add_node_wrapper(left_wrapper);
         self.add_node_wrapper(right_wrapper);
 
+        if self.edges.contains(&e) {
+            return;
+        }
+
         self.edges.insert(e);
     }
 
     pub fn node_amount(&self) -> usize {
         self.nodes.len()
+    }
+
+    pub fn edge_amoun(&self) -> usize {
+        self.edges.len()
     }
 }
 

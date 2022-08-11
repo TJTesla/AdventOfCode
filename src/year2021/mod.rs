@@ -17,3 +17,8 @@ pub mod day10;
 /// 
 /// Link: https://adventofcode.com/2021/day/11
 pub mod day11;
+
+/// Day 12: Passage Pathing
+/// 
+/// Link: https://adventofcode.com/2021/day/12
+pub mod day12;

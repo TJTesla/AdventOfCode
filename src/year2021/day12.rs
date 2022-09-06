@@ -1,6 +1,8 @@
 use std::{fs};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
+use std::hash::Hash;
 
+#[derive(PartialEq, Eq)]
 enum CaveType {
     Start,
     End,
@@ -8,43 +10,65 @@ enum CaveType {
     Small(bool),
 }
 
+#[derive(PartialEq, Eq)]
 struct Cave<'a> {
     id: String,
     cave_type: CaveType,
     connections: HashSet<&'a Cave<'a>>
 }
 
-impl Cave<'_> {
-    fn new(id: &str, cave_type: CaveType, connections: HashSet<&Cave<'_>>) -> Cave<'static> {
+impl<'a> Cave<'a> {
+    fn new(id: &str, cave_type: CaveType) -> Cave<'static> {
         Cave {
-            id: "a".to_string(), 
-            cave_type: CaveType::Start, 
-            connections: HashSet::new() 
+            id: id.clone().to_string(), 
+            cave_type,
+            connections: HashSet::new(),
         }
+    }
+
+    fn add_connection(&mut self, cave: &'a Cave) {
+        self.connections.insert(cave);
     }
 }
 
-fn get_input(test: bool) -> Cave<'static> {
-    let input = match test {
-        false => fs::read_to_string("input/year2021/day12.txt").unwrap(),
-        true => fs::read_to_string("input/year2021/test12.txt").unwrap(),
-    };
+impl Hash for Cave<'_> {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
+    }
+}
 
-    let start_cave: Cave;
-    let mut caves = HashSet::new();
+fn get_input(path: &str) -> HashMap<String, Cave> {
+    let input = fs::read_to_string(path).expect("The given path isn't correct");
+
+    let mut caves: HashMap<String, Cave> = HashMap::new();
 
     for line in input.lines() {
         let mut iter = line.split('-');
         let left_str = iter.next().unwrap();
         let right_str = iter.next().unwrap();
 
+        if !caves.contains_key(left_str) {
+            caves.insert(
+                left_str.to_string(),
+                Cave::new(left_str, get_cave_type(left_str))
+            );
+        }
+        if !caves.contains_key(right_str) {
+            caves.insert(
+                right_str.to_string(),
+                Cave::new(right_str, get_cave_type(right_str))
+            );
+        }
         
+        caves.entry(left_str.to_string()).and_modify(
+            |c| {c.add_connection(caves.get(right_str).unwrap());}
+        );
     }
 
-    Cave::new("a", CaveType::Big, HashSet::new())
+    caves
 }
 
-fn get_cave_type(label: &'static str) -> CaveType {
+fn get_cave_type(label: &str) -> CaveType {
     if label == "start" {
         return CaveType::Start;
     }
@@ -68,6 +92,19 @@ fn get_cave_type(label: &'static str) -> CaveType {
 }
 
 pub fn part_one() {
-    let input = get_input(true);
+    let input = get_input("input/year2021/day12.txt");
     
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn create() {
+
+    }
+
+   #[test]
+    fn test1() {
+
+    }
 }

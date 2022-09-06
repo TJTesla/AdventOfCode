@@ -140,12 +140,9 @@ std::map<std::string, Cave> parse_input(bool test) {
 
 int main() {
     std::map<std::string, Cave> caves = parse_input(true);
-    std::vector<Cave*> start = caves.find("start")->second.get_all_connections();
+    Cave start = caves.find("start")->second;
 
-    for (int i = 0; i < start.size(); i++) {
-        std::cout << start.at(i)->get_name() << "\n";
-    }
-    std::cout << std::endl;
+
 
     return 0;
 }

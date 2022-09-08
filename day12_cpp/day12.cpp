@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include <fstream>
 #include <sstream>
 #include <locale>
@@ -31,7 +32,8 @@ Line split(std::string str, char del) {
 }
 
 enum CaveType {
-    Normal,
+    Big,
+    Small,
     Start,
     End
 };
@@ -41,16 +43,35 @@ protected:
     CaveType type;
     std::string name;
     std::vector<Cave*> connections;
+
+    bool visited;
 public:
     Cave(std::string name, CaveType type);
     void add_connection(Cave* c);
     std::vector<Cave*> get_all_connections();
     std::string get_name();
+
+    void visit();
+    bool is_visited();
+    CaveType get_type() { return this->type; }
 };
 
 Cave::Cave(std::string name, CaveType type) {
     this->name = name;
     this->type = type;
+    this->visited = false;
+}
+
+void Cave::visit() {
+    if (this->type == Big) {
+        return;
+    }
+
+    this->visited = true;
+}
+
+bool Cave::is_visited() {
+    return this->visited;
 }
 
 void Cave::add_connection(Cave* c) {
@@ -63,25 +84,6 @@ std::vector<Cave*> Cave::get_all_connections() {
 
 std::string Cave::get_name() {
     return this->name;
-}
-
-class SmallCave : public Cave {
-private:
-    bool visited;
-public:
-    SmallCave(std::string name, CaveType type) : Cave(name, type) {
-        this->visited = false;
-    }
-    bool is_visited();
-    void visit();
-};
-
-bool SmallCave::is_visited() {
-    return visited;
-}
-
-void SmallCave::visit() {
-    this->visited = true;
 }
 
 bool is_lower(std::string str) {
@@ -101,12 +103,14 @@ void create_cave(std::map<std::string, Cave>* caves, std::string str) {
             type = Start;
         } else if (str == "end") {
             type = End;
+        } else if (is_lower(str)) {
+            type = Small;
         } else {
-            type = Normal;
+            type = Big;
         }
 
-        if (is_lower(str)) {
-            caves->insert(std::pair<std::string, Cave>(str, SmallCave(str, type)));
+        if (type != Big) {
+            caves->insert(std::pair<std::string, Cave>(str, Cave(str, type)));
         } else {
             caves->insert(std::pair<std::string, Cave>(str, Cave(str, type)));
         }
@@ -138,11 +142,45 @@ std::map<std::string, Cave> parse_input(bool test) {
     return caves;
 }
 
+void append(std::vector<Cave*>* list, std::vector<Cave*>& neighbours) {
+    for (int i = 0; i < neighbours.size(); i++) {
+        
+        list->push_back(neighbours.at(i));
+    }
+}
+
 int main() {
     std::map<std::string, Cave> caves = parse_input(true);
     Cave start = caves.find("start")->second;
+    start.visit();
 
+    std::vector<Cave*> list;
+    list.push_back(&start);
 
+    unsigned long counter = 0;
+    std::string way = "";
+
+    while (!list.empty()) {
+        Cave* current = list.front();
+        way += current->get_name();
+        std::vector<Cave*> neighbours = current->get_all_connections();
+
+        for (int i = 0; i < neighbours.size(); i++) {
+            Cave* c = neighbours.at(i);
+            if (c->get_type() == End) {
+                counter += 1;
+                std::cout << way << std::endl;
+                way = "";
+            } else if (!c->is_visited() && c->get_type() != Start) {
+                c->visit();
+                list.push_back(c);
+            }
+        }
+
+        list.erase(list.begin());
+    }
+    
+    std::cout << "There are " << counter << " possible ways" << std::endl;
 
     return 0;
 }

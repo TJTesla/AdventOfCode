@@ -1,5 +1,26 @@
+#![allow(dead_code)]
+
 use std::fs;
 use std::collections::HashSet;
+
+struct Length {
+    min: u32,
+    max: u32,
+}
+
+struct Dimensions {
+    width: Length,
+    height: Length,
+}
+
+impl Dimensions {
+    fn new(width: (u32, u32), height: (u32, u32)) -> Dimensions {
+        Dimensions{
+            width: Length { min: width.0, max: width.1, },
+            height: Length { min: height.0, max: height.1, },
+        }
+    }
+}
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
 struct Point {
@@ -30,14 +51,6 @@ impl Point {
         }
     }
 
-    fn set_important_coordinate(&mut self, dir: FoldType, new_value: u32) {
-        if dir == FoldType::Hori {
-            self.y = new_value;
-        } else {
-            self.x = new_value;
-        }
-    }
-
     fn transform(self, dir: FoldType, new_value: u32) -> Point {
         let pair = if dir == FoldType::Hori {
             (self.x, new_value)
@@ -58,9 +71,9 @@ enum FoldType {
 impl FoldType {
     fn from(dir: &str) -> FoldType {
         if dir == "x" {
-            FoldType::Hori
-        } else if dir == "y" {
             FoldType::Verti
+        } else if dir == "y" {
+            FoldType::Hori
         } else {
             panic!("The given fold instruction is not readable");
         }
@@ -92,6 +105,7 @@ fn parse_input(test: bool) -> (HashSet<Point>, Vec<Fold>) {
 
     let mut result_points = HashSet::new();
 
+    // Points
     let mut fold_instructions: String = String::new();
     let mut start_folds = false;
     for line in input.lines() {
@@ -109,6 +123,7 @@ fn parse_input(test: bool) -> (HashSet<Point>, Vec<Fold>) {
         result_points.insert(Point::new(coords[0], coords[1]));
     }
 
+    // Folds
     let mut result_folds = Vec::new();
     for line in fold_instructions.lines() {
         let command: Vec<&str> = line.split(' ').into_iter().collect::<Vec<&str>>().get(2)
@@ -121,30 +136,54 @@ fn parse_input(test: bool) -> (HashSet<Point>, Vec<Fold>) {
     (result_points, result_folds)
 }
 
-pub fn find_size_of_paper() {
+pub fn part_two() {
     let input = parse_input(false);
 
+    let mut folded = input.0;
+    for instruction in input.1 {
+        folded = fold(instruction, folded);
+    }
+
+    print(folded);
+}
+
+fn print(points: HashSet<Point>) {
+    let dim = get_dimensions(&points);
+    let mut output: String = String::new();
+
+    for y in dim.height.min..=dim.height.max {
+        for x in dim.width.min..=dim.width.max {
+            if let Some(_) = points.get(&Point::new(x, y)) {
+                output.push('█');
+            } else {
+                output.push(' ');
+            }
+        }
+        output.push('\n');
+    }
+
+    println!("{}", output);
+}
+
+fn get_dimensions(points: &HashSet<Point>) -> Dimensions {
     let mut width = (u32::MAX, u32::MIN);
     let mut height = (u32::MAX, u32::MIN);
 
-    for point in input.0 {
-        if point.x > width.1 {
-            width.1 = point.x;
-        } else if point.x < width.0 {
-            width.0 = point.x;
+    for p in points.iter() {
+        if p.x > width.1 {
+            width.1 = p.x;
+        } else if p.x < width.0 {
+            width.0 = p.x;
         }
 
-        if point.y > height.1 {
-            height.1 = point.y;
-        } else if point.y < height.0 {
-            height.0 = point.y;
+        if p.y > height.1 {
+            height.1 = p.y;
+        } else if p.y < height.0 {
+            height.0 = p.y;
         }
     }
 
-    println!("---{}---", height.0);
-    println!("{}-------{}", width.0, width.1);
-    println!("---{}---", height.1);
-
+    Dimensions::new(width, height)
 }
 
 pub fn part_one() {
@@ -157,8 +196,8 @@ pub fn part_one() {
     println!("There are {} dots", folded.len());
 }
 
-fn calculate_new_coordinate(fold: u32, coordinate: u32) -> u32 {
-    (fold * 2) - coordinate
+fn calculate_new_coordinate(fold: u32, coordinate: u32) -> i32 {
+    ((fold * 2) - coordinate) as i32
 }
 
 fn fold(fold: Fold, paper: HashSet<Point>) -> HashSet<Point> {
@@ -171,8 +210,11 @@ fn fold(fold: Fold, paper: HashSet<Point>) -> HashSet<Point> {
         }
 
         let coord = calculate_new_coordinate(fold.row, coord);
+        if coord < 0 {
+            continue;
+        }
 
-        new_paper.insert(point.transform(fold.direction, coord));
+        new_paper.insert(point.transform(fold.direction, coord as u32));
     }
 
     new_paper

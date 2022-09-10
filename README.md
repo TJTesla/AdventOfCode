@@ -5,7 +5,7 @@ Starting with year 2021
 
 ## 2021
 - Main language: Rust 🦀
-- Status: Day 12
+- Status: Day 14
 
 ## Project structure
 - The Rust part is structured with modules and submodules

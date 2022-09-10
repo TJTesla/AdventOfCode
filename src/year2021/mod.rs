@@ -19,6 +19,15 @@ pub mod day10;
 pub mod day11;
 
 /// Day 12: Passage Pathing
-/// 
+///
+/// Solved with C++, since tree and graph structures aren't easy to work with in C++
+/// Code doesn't run, since the filepaths to the input files aren't correct
+/// Found in ```advent_of_code/day12_cpp/day12.cpp```
+///
 /// Link: https://adventofcode.com/2021/day/12
 pub mod day12;
+
+/// Day 13: Transparent Origami
+///
+/// Link: https://adventofcode.com/2021/day/13
+pub mod day13;

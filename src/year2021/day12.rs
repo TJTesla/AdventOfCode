@@ -1,3 +1,9 @@
+/// Look at the code of the C++ Project in the root directory of this cargo project
+pub fn part_one() {
+    println!("Look at the code of the C++ Project in the root directory of this cargo project");
+}
+
+/*
 use std::{fs};
 use std::collections::{HashMap, HashSet};
 use std::hash::Hash;
@@ -108,3 +114,4 @@ mod tests {
 
     }
 }
+*/

@@ -31,3 +31,8 @@ pub mod day12;
 ///
 /// Link: https://adventofcode.com/2021/day/13
 pub mod day13;
+
+/// Day 14: Extended Polymerization
+///
+/// Link: https://adventofcode.com/2021/day/14
+pub mod day14;

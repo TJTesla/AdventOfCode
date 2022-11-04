@@ -1,0 +1,3 @@
+/Users/theodor/RustProjects/advent_of_code/cmake-build-debug/CMakeFiles/advent_of_code.dir
+/Users/theodor/RustProjects/advent_of_code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/theodor/RustProjects/advent_of_code/cmake-build-debug/CMakeFiles/rebuild_cache.dir

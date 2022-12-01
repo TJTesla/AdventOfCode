@@ -1,5 +1,6 @@
 mod year2021;
+mod year2022;
 
 fn main() {
-    year2021::day14::part_two();
+    year2022::day1::part_two();
 }

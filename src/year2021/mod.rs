@@ -36,3 +36,8 @@ pub mod day13;
 ///
 /// Link: https://adventofcode.com/2021/day/14
 pub mod day14;
+
+/// Day 15: Chiton
+/// 
+/// Link: https://adventofcode.com/2021/day/15
+pub mod day15;

@@ -2,3 +2,8 @@
 ///
 /// Link: https://adventofcode.com/2022/day/1
 pub mod day1;
+
+/// Day 2: Rock Paper Scissors
+/// 
+/// Link: https://adventofcode.com/2022/day/2
+pub mod day2;

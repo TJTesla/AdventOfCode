@@ -1,85 +1,44 @@
 #![allow(dead_code)]
-
-use std::cmp::Ordering;
 use std::fs;
-use priority_queue;
-use priority_queue::PriorityQueue;
+use petgraph::graph::UnGraph;
+use petgraph::graph::NodeIndex;
+use petgraph::algo::dijkstra;
 
-#[derive(Eq, PartialEq, Hash)]
-struct Path {
-    previous_fields: Vec<(u8, u8)>,
-    weights: u32,
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Clone, Copy, Default)]
+struct Node {
+    val: u128,
+    index: usize,
 }
 
-impl Path {
-    fn new() -> Path {
-        Path {
-            previous_fields: vec![],
-            weights: 0
+impl Node {
+    fn new(val: u128, index: usize) -> Node {
+        Node {
+            val,
+            index
         }
-    }
-
-    fn new_from_field(f: (u8, u8)) -> Path {
-        Path {
-            previous_fields: vec![f],
-            weights: 0
-        }
-    }
-
-    fn add_field(&mut self, field: (u8, u8), weight: u32) {
-        self.previous_fields.push(field);
-        self.weights += weight;
-    }
-
-    fn visited(&self, list: &Vec<Path>) -> bool {
-        for p in list {
-            if p == self {
-                return true;
-            }
-        }
-        false
     }
 }
 
-impl PartialOrd<Self> for Path {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        if self.weights > other.weights {
-            return Some(Ordering::Greater)
-        }
-        if self.weights < other.weights {
-            return Some(Ordering::Less)
-        }
-        if self.weights == other.weights {
-            return Some(Ordering::Equal)
-        }
-        None
+impl Into<NodeIndex> for Node {
+    fn into(self) -> NodeIndex {
+        NodeIndex::new(self.index)
     }
 }
 
-impl Ord for Path {
-    fn cmp(&self, other: &Self) -> Ordering {
-        if self.weights > other.weights {
-            return Ordering::Greater
-        }
-        if self.weights < other.weights {
-            return Ordering::Less
-        }
-        Ordering::Equal
-    }
-}
-
-fn parse_input(test: bool) -> Vec<Vec<u8>> {
+fn parse_input(test: bool) -> Vec<Vec<Node>> {
     let file_content = if test {
         fs::read_to_string("input/year2021/test15.txt").unwrap()
     } else {
-        fs::read_to_string("input/year2021/test16.txt").unwrap()
+        fs::read_to_string("input/year2021/day15.txt").unwrap()
     };
 
     let mut result = Vec::new();
+    let mut counter = 0;
     for line in file_content.lines() {
-        let mut v: Vec<u8> = Vec::new();
+        let mut v: Vec<Node> = Vec::new();
         for c in line.chars() {
-            v.push(c.to_string().parse().unwrap());
+            v.push(Node::new(c.to_string().parse().unwrap(), counter));
+            counter += 1;
         }
         result.push(v);
     }
@@ -87,17 +46,49 @@ fn parse_input(test: bool) -> Vec<Vec<u8>> {
     return result;
 }
 
-fn dijkstra(net: Vec<Vec<(u8, u8)>>) -> Path {
-    let mut prio_q: PriorityQueue<Path, u32> = priority_queue::PriorityQueue::new();
-    prio_q.push(Path::new_from_field(net[0][0]), 0);
+fn create_graph(vec: Vec<Vec<Node>>) -> UnGraph<Node, u128> {
+    let mut edges = Vec::new();
 
-    loop {
-        break;
+    // Create vec of pairs of Nodes
+    for i in 0..vec.len() {
+        for j in 0..vec[i].len() {
+            let hori_pair = match vec.get(i).unwrap().get(j+1) {
+                Some(num) => Some((vec[i][j], *num, num.val as u128)),
+                None => None,
+            };
+            let verti_pair = match vec.get(i+1) {
+                Some(line_under) => Some((vec[i][j], line_under[j], line_under[j].val as u128)),
+                None => None,
+            };
+
+            if let Some(pair) = hori_pair {
+                edges.push(pair);
+            }
+            if let Some(pair) = verti_pair {
+                edges.push(pair);
+            }
+        }
     }
 
-    return Path::new();
+    UnGraph::<Node, u128>::from_edges(edges)
 }
 
 pub fn part_one() {
+    let input = parse_input(false);
 
+    let (first, last) = (
+        input.first().unwrap().first().unwrap().clone(), 
+        input.last().unwrap().last().unwrap().clone()
+    );
+
+    let graph = create_graph(input);
+
+    let node_map = dijkstra(
+        &graph, 
+        NodeIndex::new(first.index), 
+        Some(NodeIndex::new(last.index)),
+    |e| *e.weight(),
+    );
+
+    println!("The minimum way is {}", node_map.get(&NodeIndex::new(last.index)).unwrap());
 }

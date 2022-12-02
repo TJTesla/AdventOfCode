@@ -6,7 +6,7 @@ version = 3
 name = "advent_of_code"
 version = "0.1.0"
 dependencies = [
- "priority-queue",
+ "petgraph",
 ]
 
 [[package]]
@@ -14,6 +14,12 @@ name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+
+[[package]]
+name = "fixedbitset"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0ce7134b9999ecaf8bcd65542e436736ef32ddca1b3e06094cb6ec5755203b80"
 
 [[package]]
 name = "hashbrown"
@@ -32,11 +38,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "priority-queue"
-version = "1.2.3"
+name = "petgraph"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "815082d99af3acc75a3e67efd2a07f72e67b4e81b4344eb8ca34c6ebf3dfa9c5"
+checksum = "e6d5014253a1331579ce62aa67443b4a658c5e7dd03d4bc6d302b94474888143"
 dependencies = [
- "autocfg",
+ "fixedbitset",
  "indexmap",
 ]

@@ -2,10 +2,16 @@
 
 My work for the advent of code
 Starting with year 2021
+Now on 2022
+When I've got time, I will try to advance in 2021
+
+## 2022
+- Main Language: You can prbly guess: Rust 🦀
+- Status: Day 2
 
 ## 2021
 - Main language: Rust 🦀
-- Status: Day 14
+- Status: Day 15
 
 ## Project structure
 - The Rust part is structured with modules and submodules

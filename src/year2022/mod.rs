@@ -7,3 +7,8 @@ pub mod day1;
 /// 
 /// Link: https://adventofcode.com/2022/day/2
 pub mod day2;
+
+/// Day 3: Rucksack Reorganization
+/// 
+/// Link: https://adventofcode.com/2022/day/3
+pub mod day3;

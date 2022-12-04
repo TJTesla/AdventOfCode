@@ -12,3 +12,8 @@ pub mod day2;
 /// 
 /// Link: https://adventofcode.com/2022/day/3
 pub mod day3;
+
+/// Day 4: Camp Cleanup
+/// 
+/// Link: https://adventofcode.com/2022/day/4
+pub mod day4;

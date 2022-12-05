@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::fs::read_to_string;
 
 fn parse_input(test: bool) -> Vec<((u32, u32), (u32, u32))> {

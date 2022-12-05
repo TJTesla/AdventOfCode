@@ -17,3 +17,8 @@ pub mod day3;
 /// 
 /// Link: https://adventofcode.com/2022/day/4
 pub mod day4;
+
+/// Day 5: Supply Stacks
+/// 
+/// Link: https://adventofcode.com/2022/day/5
+pub mod day5;

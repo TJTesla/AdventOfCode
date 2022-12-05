@@ -7,7 +7,7 @@ When I've got time, I will try to advance in 2021
 
 ## 2022
 - Main Language: You can prbly guess: Rust 🦀
-- Status: Day 2
+- Status: Day 5
 
 ## 2021
 - Main language: Rust 🦀

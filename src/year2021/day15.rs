@@ -74,7 +74,7 @@ fn create_graph(vec: Vec<Vec<Node>>) -> UnGraph<Node, u128> {
 }
 
 pub fn part_one() {
-    let input = parse_input(false);
+    let input = parse_input(true);
 
     let (first, last) = (
         input.first().unwrap().first().unwrap().clone(), 

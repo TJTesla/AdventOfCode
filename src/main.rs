@@ -13,11 +13,11 @@ fn string_to_bool(s: &str) -> bool {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let test: bool = if args.len() > 1 {
+    let _test: bool = if args.len() > 1 {
         string_to_bool(&args[1])
     } else {
         true
     };
 
-    year2022::day6::part_two(test);
+    year2021::day15::part_one();
 }

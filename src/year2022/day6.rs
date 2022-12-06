@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::{fs::read_to_string, collections::HashSet};
 
 fn parse_input(test: bool) -> Vec<Vec<char>> {
@@ -50,8 +51,8 @@ fn find_msg_end_index(signal: &Vec<char>) -> Option<usize> {
     Some(0)
 }
 
-pub fn part_two() {
-    let input = parse_input(false);
+pub fn part_two(test: bool) {
+    let input = parse_input(test);
 
     for line in input {
         println!("Signal: {}; First marker: {}", line.iter().collect::<String>(), find_msg_end_index(&line).unwrap());

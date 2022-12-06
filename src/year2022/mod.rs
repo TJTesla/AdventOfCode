@@ -22,3 +22,8 @@ pub mod day4;
 /// 
 /// Link: https://adventofcode.com/2022/day/5
 pub mod day5;
+
+/// Day 6: Tuning Trouble
+/// 
+/// Link: https://adventofcode.com/2022/day/6
+pub mod day6;

@@ -27,3 +27,8 @@ pub mod day5;
 /// 
 /// Link: https://adventofcode.com/2022/day/6
 pub mod day6;
+
+/// Day 7: No Space Left On Device
+/// 
+/// Link: https://adventofcode.com/2022/day/7
+pub mod day7;

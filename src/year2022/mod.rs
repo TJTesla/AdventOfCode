@@ -32,3 +32,8 @@ pub mod day6;
 /// 
 /// Link: https://adventofcode.com/2022/day/7
 pub mod day7;
+
+/// Day 8: Treetop Tree House
+/// 
+/// Link: https://adventofcode.com/2022/day/8
+pub mod day8;

@@ -41,3 +41,8 @@ pub mod day14;
 /// 
 /// Link: https://adventofcode.com/2021/day/15
 pub mod day15;
+
+/// Day 16: Packet Decoder
+/// 
+/// Link: https://adventofcode.com/2021/day/16
+pub mod day16;

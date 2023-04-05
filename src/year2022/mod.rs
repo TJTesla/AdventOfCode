@@ -37,3 +37,8 @@ pub mod day7;
 /// 
 /// Link: https://adventofcode.com/2022/day/8
 pub mod day8;
+
+/// Day 9: Rope Bridge
+/// 
+/// Link: https://adventofcode.com/2022/day/9
+pub mod day9;

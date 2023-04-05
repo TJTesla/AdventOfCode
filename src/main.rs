@@ -19,5 +19,5 @@ fn main() {
         true
     };
 
-    year2022::day8::part_one(_test);
+    year2021::day16::part_one(false);
 }

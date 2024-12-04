@@ -1,3 +1,5 @@
 /target
 /theograph
 *.lock
+input/year2024
+input/year2024/*

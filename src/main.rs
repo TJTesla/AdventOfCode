@@ -1,6 +1,8 @@
 mod year2021;
 mod year2022;
 
+mod year2024;
+
 use std::env;
 
 fn string_to_bool(s: &str) -> bool {
@@ -19,5 +21,5 @@ fn main() {
         true
     };
 
-    year2021::day16::part_one(false);
+    year2024::day5::part_two(false);
 }

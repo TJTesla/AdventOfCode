@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::fs::read_to_string;
 
 fn hex_to_dec(character: char) -> String {
@@ -24,10 +26,12 @@ fn hex_to_dec(character: char) -> String {
 
 fn parse_input(test: bool) -> String {
     let input = if test {
-        "8A004A801A8002F478".to_string()
+        // "8A004A801A8002F478".to_string()
         // "620080001611562C8802118E34".to_string()
         // "C0015000016115A2E0802F182340".to_string()
         // "A0016C880162017C3686B18A3D4780".to_string()
+        // "EE00D40C823060".to_string()
+        "38006F45291200".to_string()
     } else {
         read_to_string("input/year2021/day16.txt").unwrap()
     };
@@ -90,7 +94,6 @@ fn collect_literal_value(input: &str, pointer: &mut usize) -> u128 {
 
 fn collect_sub_packets(input: &str, pointer: &mut usize, sub_packet_countdown: Option<u16>) -> Vec<Packet> {
     let mut packets = Vec::new();
-    println!("STUFE");
 
     match sub_packet_countdown {
         None => {
@@ -139,7 +142,12 @@ fn fill_operator_packet(version: u8, type_id: u8, input: &str, pointer: &mut usi
     let sub_packets;
     if length_type == 0 {
         // Next 15 bits is number of bits of the sub_packets
-        let mut bit_amount = u16::from_str_radix(&input[*pointer+7..*pointer+22], 2).unwrap();
+        let upper_bounds = if *pointer+22 >= input.len() {
+            (*pointer + input.len() - *pointer) as u16
+        } else {
+            (*pointer+22) as u16
+        };
+        let mut bit_amount = u16::from_str_radix(&input[*pointer+7..upper_bounds as usize], 2).unwrap();
         *pointer += 22;
         let mut offset = 0;
         // For some reason a packet is allowed to say it is longer than the remaining string...

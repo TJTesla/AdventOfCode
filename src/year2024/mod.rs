@@ -22,3 +22,8 @@ pub mod day4;
 ///
 /// Link: https://adventofcode.com/2024/day/5
 pub mod day5;
+
+/// Day 6: Guard Gallivant
+///
+/// Link: https://adventofcode.com/2024/day/6
+pub mod day6;

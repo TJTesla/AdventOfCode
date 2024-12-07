@@ -27,3 +27,7 @@ pub mod day5;
 ///
 /// Link: https://adventofcode.com/2024/day/6
 pub mod day6;
+
+/// Day 7: Bridge Repair
+///
+pub mod day7;

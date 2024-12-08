@@ -3,3 +3,6 @@
 *.lock
 input/year2024
 input/year2024/*
+input/year2023/*
+input/year2022/*
+input/year2021/*

@@ -30,10 +30,20 @@ pub mod day6;
 
 /// Day 7: Bridge Repair
 ///
-/// https://adventofcode.com/2024/day/7
+/// Link: https://adventofcode.com/2024/day/7
 pub mod day7;
 
 /// Day 8: Resonant Collinearity
 ///
-/// https://adventofcode.com/2024/day/8
+/// Link: https://adventofcode.com/2024/day/8
 pub mod day8;
+
+/// Day 9: Disk Fragmenter
+///
+/// Link: https://adventofcode.com/2024/day/9
+pub mod day9;
+
+/// Day 10: Hoof It
+///
+/// Link: https://adventofcode.com/2024/day/10
+pub mod day10;

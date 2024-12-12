@@ -47,3 +47,8 @@ pub mod day9;
 ///
 /// Link: https://adventofcode.com/2024/day/10
 pub mod day10;
+
+/// Day 11: Plutonian Pebbles
+///
+/// Link: https://adventofcode.com/2024/day/11
+pub mod day11;

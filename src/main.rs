@@ -21,5 +21,5 @@ fn main() {
         true
     };
 
-    year2024::day11::part_two(true);
+    year2024::day12::part_two(true);
 }

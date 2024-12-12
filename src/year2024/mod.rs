@@ -52,3 +52,8 @@ pub mod day10;
 ///
 /// Link: https://adventofcode.com/2024/day/11
 pub mod day11;
+
+/// Day 12: Garden Groups
+///
+/// Link: https://adventofcode.com/2024/day/12
+pub mod day12;
